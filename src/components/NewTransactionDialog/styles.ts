@@ -1,4 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
+import * as RadioGroup from '@radix-ui/react-radio-group';
 import { styled } from "styled-components";
 
 export const Overlay = styled(Dialog.Overlay)`
@@ -75,7 +76,7 @@ export const CloseButton = styled(Dialog.Close)`
 
 
 
-export const TransactionType = styled.div`
+export const TransactionType = styled(RadioGroup.Root)`
   display: grid;
   grid-template-columns: repeat(2,1fr);
   gap:1rem;
@@ -86,7 +87,7 @@ interface TransactionTypeButtonProps {
   variant: 'income' | 'outcome';
 }
 
-export const TransactionTypeButton = styled.button<TransactionTypeButtonProps>`
+export const TransactionTypeButton = styled(RadioGroup.Item) <TransactionTypeButtonProps>`
   background: ${props => props.theme["gray-700"]};
   padding: 1rem;
   display: flex;
@@ -98,9 +99,23 @@ export const TransactionTypeButton = styled.button<TransactionTypeButtonProps>`
   border: 0;
   color: ${props => props.theme["gray-300"]};
 
-  /** Troca a cor do icone do botão de entrada e saida do PopUP */
+  /** Troca a cor do icone do botão de entrada e saida do Popup */
   svg{
     color: ${props => props.variant === 'income' ? props.theme["green-300"] : props.theme["red-300"]};
   }
 
+  /** Quando o botão do Popup está seleciodado, deixar na cores abaixo*/
+  &[data-state='checked']{
+    color: ${props => props.theme.white};
+    background: ${props => props.variant === 'income' ? props.theme["green-500"] : props.theme["red-500"]};
+
+    svg{
+      color: ${props => props.theme.white}
+    }
+  }
+
+  &[data-state='unchecked']:hover{
+    background: ${props => props.theme["gray-600"]};
+    transition: background-color 0.2s;
+  }
 `;
