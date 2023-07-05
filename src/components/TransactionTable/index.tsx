@@ -1,8 +1,7 @@
-import { PriceHighlight, Table, TableContainer } from "./styles";
+import { PriceHighlight, Table} from "./styles";
 
 export function TransactionTable() {
   return (
-    <TableContainer>
       <Table>
         <tbody>
           <tr>
@@ -31,6 +30,6 @@ export function TransactionTable() {
           </tr>
         </tbody>
       </Table>
-    </TableContainer>
+  
   )
 }
