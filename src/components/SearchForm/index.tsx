@@ -1,33 +1,31 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { MagnifyingGlass } from "phosphor-react";
-import { useContext } from "react";
-import { useForm } from "react-hook-form";
-import * as z from 'zod';
-import { TransactionContext } from "../../contexts/TransactionsContext";
-import { SearchFormContainer } from "./styles";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { MagnifyingGlass } from 'phosphor-react'
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { TransactionContext } from '../../contexts/TransactionsContext'
+import { SearchFormContainer } from './styles'
 
 /** Usar o zod pra validar os campos */
 const searchFormSchema = z.object({
-  query: z.string()
+  query: z.string(),
 })
 
 type SearchFormInput = z.infer<typeof searchFormSchema>
 
-
 export function SearchForm() {
-
   const { fetchTransactions } = useContext(TransactionContext)
 
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting } } = useForm<SearchFormInput>({
-      resolver: zodResolver(searchFormSchema)
-    })
+    formState: { isSubmitting },
+  } = useForm<SearchFormInput>({
+    resolver: zodResolver(searchFormSchema),
+  })
 
   function handleSearchTransactions(data: SearchFormInput) {
     fetchTransactions(data.query)
-
   }
 
   return (

@@ -1,17 +1,15 @@
-import { useContext } from "react";
-import { TransactionContext } from "../../contexts/TransactionsContext";
-import { dateFormatter, priceFormater } from "../../utils/formatter";
-import { PriceHighlight, Table } from "./styles";
+import { useContext } from 'react'
+import { TransactionContext } from '../../contexts/TransactionsContext'
+import { dateFormatter, priceFormater } from '../../utils/formatter'
+import { PriceHighlight, Table } from './styles'
 
 export function TransactionTable() {
-
   const { transactions } = useContext(TransactionContext)
-
 
   return (
     <Table>
       <tbody>
-        {transactions.map(transaction => {
+        {transactions.map((transaction) => {
           return (
             <tr key={transaction.id}>
               <td width="50%">{transaction.description}</td>
@@ -29,6 +27,5 @@ export function TransactionTable() {
         })}
       </tbody>
     </Table>
-
   )
 }
