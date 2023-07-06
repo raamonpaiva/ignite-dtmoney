@@ -1,7 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MagnifyingGlass } from "phosphor-react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import * as z from 'zod';
+import { TransactionContext } from "../../contexts/TransactionsContext";
 import { SearchFormContainer } from "./styles";
 
 /** Usar o zod pra validar os campos */
@@ -14,6 +16,8 @@ type SearchFormInput = z.infer<typeof searchFormSchema>
 
 export function SearchForm() {
 
+  const { fetchTransactions } = useContext(TransactionContext)
+
   const {
     register,
     handleSubmit,
@@ -22,7 +26,7 @@ export function SearchForm() {
     })
 
   function handleSearchTransactions(data: SearchFormInput) {
-    console.log(data)
+    fetchTransactions(data.query)
 
   }
 

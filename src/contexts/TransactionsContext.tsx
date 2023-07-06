@@ -13,6 +13,7 @@ interface Transaction {
 // Interface para Transactions
 interface TransactionContextType {
   transactions: Transaction[];
+  fetchTransactions: (query?: string) => Promise<void>
 }
 
 //Tipagem do children
@@ -31,18 +32,25 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   /** JSON Server HTTT Request */
-  async function loadTransactions() {
-    const response = await fetch('http://localhost:3000/transactions');
+  async function fetchTransactions(query?: string) {
+
+    const url = new URL('http://localhost:3000/transactions');
+
+    if (query) {
+      url.searchParams.append('q', query)
+    }
+
+    const response = await fetch(url);
     const data = await response.json();
 
     setTransactions(data);
   }
 
-  useEffect(() => { loadTransactions() }, [])
+  useEffect(() => { fetchTransactions() }, [])
 
 
   return (
-    <TransactionContext.Provider value={{ transactions }}>
+    <TransactionContext.Provider value={{ transactions, fetchTransactions }}>
       {children}
     </TransactionContext.Provider>
   )
