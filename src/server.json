@@ -1,0 +1,12 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "venda",
+      "price": 14000,
+      "createdAt": "2023-07-06T13:43:10.078Z"
+    }
+  ]
+}
