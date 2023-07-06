@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles';
 
@@ -20,6 +20,10 @@ export function NewTransactionDialog() {
 
 
   const {
+    /** Toda vez que for inserir algo no formulário e a informação não vier de uma função nativa, como
+     * foi no caso do Dialog via Radix UI, usa-se o control
+     */
+    control,
     register,
     handleSubmit,
     formState: { isSubmitting }
@@ -61,10 +65,23 @@ export function NewTransactionDialog() {
             required
             {...register('category')} />
 
-          <TransactionType>
-            <TransactionTypeButton variant='income' value='income'> <ArrowCircleUp size={24} />Entrada</TransactionTypeButton>
-            <TransactionTypeButton variant='outcome' value='outcome'> <ArrowCircleDown size={24} />Saída</TransactionTypeButton>
-          </TransactionType>
+          <Controller
+            control={control}
+            name='type'
+            /** Render é um função que vai retornar qual o HTML relacionado a forma de como vai ser inserido o campo type,
+             * no formulario. Existem diversas propriedades dentro do metodo render
+              */
+            render={({ field }) => {
+
+              console.log(field)
+              return (
+                <TransactionType onValueChange={field.onChange} value={field.value}>
+                  <TransactionTypeButton variant='income' value='income'> <ArrowCircleUp size={24} />Entrada</TransactionTypeButton>
+                  <TransactionTypeButton variant='outcome' value='outcome'> <ArrowCircleDown size={24} />Saída</TransactionTypeButton>
+                </TransactionType>
+              )
+            }}
+          />
 
           <button type="submit" disabled={isSubmitting}>
             Cadastrar
