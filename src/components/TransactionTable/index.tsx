@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { TransactionContext } from "../../contexts/TransactionsContext";
+import { dateFormatter, priceFormater } from "../../utils/formatter";
 import { PriceHighlight, Table } from "./styles";
 
 export function TransactionTable() {
@@ -15,10 +16,14 @@ export function TransactionTable() {
             <tr key={transaction.id}>
               <td width="50%">{transaction.description}</td>
               <td>
-                <PriceHighlight variant={transaction.type}>{transaction.price}</PriceHighlight>
+                <PriceHighlight variant={transaction.type}>
+                  {/** Adiciona sinal + ou - dependendo da operação */}
+                  {transaction.type === 'outcome' && '- '}
+                  {priceFormater.format(transaction.price)}
+                </PriceHighlight>
               </td>
               <td>{transaction.category}</td>
-              <td>{transaction.createdAt}</td>
+              <td>{dateFormatter.format(new Date(transaction.createdAt))}</td>
             </tr>
           )
         })}
