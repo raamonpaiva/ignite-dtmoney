@@ -1,33 +1,12 @@
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from "phosphor-react";
-import { useContext } from "react";
-import { TransactionContext } from "../../contexts/TransactionsContext";
+import { useSummary } from "../../hooks/useSummary";
 import { priceFormater } from "../../utils/formatter";
 import { SummaryCard, SummaryContainer } from "./styles";
 
 export function Summary() {
 
-  const { transactions } = useContext(TransactionContext)
-
-
-  /**Converte transactions para um objeto, onde o ultimo parametro é o formato desejado para apresentação dos dados */
-  const summary = transactions.reduce(
-    (acumulator, transaction) => {
-      /** A cada iteração ele faz o somatorio to total dependendo da operação escolhida */
-      if (transaction.type === 'income') {
-        acumulator.income += transaction.price;
-        acumulator.total += transaction.price
-      } else {
-        acumulator.outcome += transaction.price
-        acumulator.total -= transaction.price
-      }
-
-      return acumulator
-    },
-    {
-      income: 0,
-      outcome: 0,
-      total: 0
-    })
+  // Chamando  o hook que foi criado para calcular o somatorio de valores
+  const summary = useSummary()
 
   return (
     <SummaryContainer>
