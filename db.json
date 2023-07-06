@@ -15,6 +15,22 @@
       "category": "Alimentação",
       "price": 59,
       "createdAt": "2023-07-06T13:40:10.078Z"
+    },
+    {
+      "description": "Desenvolvimento DTMoney",
+      "price": 5000,
+      "category": "Venda",
+      "type": "income",
+      "createdAt": "2023-07-06T22:26:54.055Z",
+      "id": 3
+    },
+    {
+      "description": "Iorgurte",
+      "price": 5,
+      "category": "Alimentação",
+      "type": "outcome",
+      "createdAt": "2023-07-06T22:49:43.921Z",
+      "id": 4
     }
   ]
 }
