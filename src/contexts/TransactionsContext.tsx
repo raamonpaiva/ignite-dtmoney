@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { api } from "../lib/axios";
 
 // Adicionando a Tipagem para a transação
 interface Transaction {
@@ -34,16 +35,13 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   /** JSON Server HTTT Request */
   async function fetchTransactions(query?: string) {
 
-    const url = new URL('http://localhost:3000/transactions');
+    const response = await api.get('transactions', {
+      params: {
+        q: query,
+      }
+    })
 
-    if (query) {
-      url.searchParams.append('q', query)
-    }
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    setTransactions(data);
+    setTransactions(response.data);
   }
 
   useEffect(() => { fetchTransactions() }, [])
