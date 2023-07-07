@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
+import { createContext } from 'use-context-selector'
 import { api } from '../lib/axios'
 
 // Adicionando a Tipagem para a transação
@@ -62,7 +63,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
       createdAt: new Date(),
     })
 
-    setTransactions((state) => [...state, response.data])
+    setTransactions((state) => [response.data, ...state])
   }
 
   useEffect(() => {

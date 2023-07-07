@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
-import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useContextSelector } from 'use-context-selector'
 import * as z from 'zod'
 import { TransactionContext } from '../../contexts/TransactionsContext'
 import {
@@ -23,7 +23,12 @@ const NewTransactionFormSchema = z.object({
 type NewTransactionFormInputs = z.infer<typeof NewTransactionFormSchema>
 
 export function NewTransactionDialog() {
-  const { createTransaction } = useContext(TransactionContext)
+  const createTransaction = useContextSelector(
+    TransactionContext,
+    (context) => {
+      return context.createTransaction
+    },
+  )
 
   const {
     /** Toda vez que for inserir algo no formulário e a informação não vier de uma função nativa, como

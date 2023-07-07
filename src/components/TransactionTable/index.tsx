@@ -1,10 +1,12 @@
-import { useContext } from 'react'
+import { useContextSelector } from 'use-context-selector'
 import { TransactionContext } from '../../contexts/TransactionsContext'
 import { dateFormatter, priceFormater } from '../../utils/formatter'
 import { PriceHighlight, Table } from './styles'
 
 export function TransactionTable() {
-  const { transactions } = useContext(TransactionContext)
+  const transactions = useContextSelector(TransactionContext, (context) => {
+    return context.transactions
+  })
 
   return (
     <Table>
