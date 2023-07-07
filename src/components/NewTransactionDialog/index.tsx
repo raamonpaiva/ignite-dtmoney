@@ -37,8 +37,8 @@ export function NewTransactionDialog() {
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(NewTransactionFormSchema),
     defaultValues: {
-      type: 'income'
-    }
+      type: 'income',
+    },
   })
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
@@ -96,7 +96,9 @@ export function NewTransactionDialog() {
               console.log(field)
               return (
                 <TransactionType
-                  onValueChange={(value: NewTransactionFormInputs['type']) => field.onChange(value)}
+                  onValueChange={(value: NewTransactionFormInputs['type']) =>
+                    field.onChange(value)
+                  }
                   value={field.value}
                 >
                   <TransactionTypeButton variant="income" value="income">
